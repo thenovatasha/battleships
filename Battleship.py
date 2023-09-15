@@ -25,4 +25,23 @@ def ShipLogic(round, yourMap, yourHp, enemyHp, p1ShotSeq, p1PrevHit):
         # Consider possibilites of where each ship can fit based on position
         # of hits and misses
 
+            # Possibly use the same simulation approach as Searching:  For 
+            # each hit, pick a random ship, a random orientation and a random
+            # position on the ship that should lie above the hit
+            
+                # Take into account not only the misses around the ship that
+                # limit it's position but also the hits - try to make guesses
+                # for the position of a ship that cover multiple preexisting 
+                # hits
+
+            # Whichever combination of ships, ship positions and orientations
+            # occured the most, make a guess based on that combination
+
+            # Always guess a coord directly adjacent to the hit being searched 
+            # around to avoid complete misses that don't give much info about
+            # the ship
+    
+    
+    # If hp != 0 when DESTROYING phase is finished, return to the searching phase
+
     return [x,y] 
