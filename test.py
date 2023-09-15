@@ -1,5 +1,4 @@
 import importlib
-from Battleship.py import ShipLogic
 import random
 def putShipOnMap(shipCoor, pMap):
     '''
