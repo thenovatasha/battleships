@@ -93,12 +93,6 @@ def update_storage(storage, p1ShotSeq, p1PrevHit):
         return storage
 
 
-def make_random_guess():
-    """ Random guess for testing purposes """
-    x = random.randint(0,9)
-    y = random.randint(0,9)
-    return x, y
-
 def zero_heatmap(heatmap):
     """ Set the heatmap to all zeros """
     for x in range(10):
