@@ -12,6 +12,7 @@ def getShipPos():
     Your ships must satisfy this 
     Ship positions must be (0-9, 0-9)
     '''
+    """
     # GENERATE SHIP POSITIONS
     # List of ships that must be placed
     remaining_ships = [5, 3, 3, 2, 2]
@@ -22,7 +23,7 @@ def getShipPos():
     # Put down all ships
     for ship in remaining_ships:
         fits = False
-        while (not fits):
+        while (fits == False):
             fits = True
             this_shipPos = []
             if bool(random.getrandbits(1)):
@@ -38,23 +39,37 @@ def getShipPos():
                 for y_counter in range(y, y_end):
                     this_shipPos.append((x, y_counter))
 
-            for coord in this_shipPos:
-                on_board = bool(0<=coord[0]<=9 and 0<=coord[1]<=9)
-                for old_shipPos in shipPos:
-                    for old_coord in old_shipPos:
-                        if ((on_board != True) or coord == old_coord):
-                            fits = False
-
-                
-        
-                
         shipPos.append(this_shipPos)
 
+
+    visual = zero_array()
+    for ship, num in zip(shipPos, remaining_ships):
+        for coord in ship:
+            visual[coord[0]][coord[1]] = num
+    print_grid(visual)
     """
+    
     shipPos = [[(3,1), (4,1),(5,1)], 
                 [(2,1),(2,2),(2,3),(2,4),(2,5)], 
                 [(7,7),(8,7)] , 
                 [(0,9), (1,9), (2,9)], 
                 [(5,9), (6,9)]]
-    """
+    
+
     return shipPos
+
+def zero_array():
+    """ Set the heatmap to all zeros """
+    initArray = []
+    UNKNOWN = ' '
+    for row in range(10):
+        initInnerRow = 10*[UNKNOWN]
+        initArray.append(initInnerRow)
+    return initArray
+
+def print_grid(array):
+    for r in range(10):
+        for c in range(10):
+            print(array[r][c], end=" ")
+        print()
+    print()
