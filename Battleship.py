@@ -37,9 +37,31 @@ def print_key_info(round, yourMap, yourHp, enemyHp, p1ShotSeq, p1PrevHit, storag
     print(f"Storage: {storage}")
 
 
+
 def update_storage(storage, p1ShotSeq, p1PrevHit):
     """ Update the storage list to hold """
-    return storage
+    # IMPORTANT: TO UPDATE STORAGE YOU MUST CALL FUNCTION AS storage = updateStorage(., ., .)
+    # takes 1-10 coord but converts to 0-9
+    # if storage has something in it, update, otherwise initialise
+    if (storage):
+        # update, indexing in terms of x-1 and y-1
+        lastShot = p1ShotSeq[-1]
+        print("LAST SHOT: ", lastShot)
+        if p1PrevHit:
+            print("a")
+            storage[lastShot[0]-1][lastShot[1]-1] = HIT
+        else:
+            print("b")
+            storage[lastShot[0]-1][lastShot[1]-1] = MISS
+        return storage
+    else:
+        #initialise
+        initStorage = []
+        for row in range(10):
+            initInnerRow = 10*[UNKNOWN]
+            initStorage.append(initInnerRow)
+        storage = initStorage
+        return storage
 
 
 def make_random_guess():
