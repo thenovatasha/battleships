@@ -1,8 +1,21 @@
 import random
+def print_shots(storage):
+	matrix_zeros = [[0 for i in range(10)] for j in range(10)]
+	for row in storage:
+		for block in row:
+			if block == -1:
+				matrix_zeros[row][block] = 'X'
+				
+			else:
+				matrix_zeros[row][block] = 'O'
+	print_grid(matrix_zeros)
+		
 def ShipLogic(round, yourMap, yourHp, enemyHp, p1ShotSeq, p1PrevHit, storage):
+
 
     # Building the storage array
     storage = update_storage(storage, p1ShotSeq, p1PrevHit)
+    print_shots(storage)
 
     # Creating a heatmap
     heatmap = zero_array()
@@ -14,10 +27,12 @@ def ShipLogic(round, yourMap, yourHp, enemyHp, p1ShotSeq, p1PrevHit, storage):
     heatmap = heatmap_hits(storage, heatmap)
     #print("BIAS HEATMAP BASED ON HITS")
     #print_grid(heatmap)
-    heatmap = heatmap_zeros(storage, heatmap)
-    
     # Choose a coord from the heatmap
+    heatmap = heatmap_zeros(storage, heatmap)
+
     coord = select_from_heatmap(heatmap)
+
+
 
     # Return this coordinate as a guess
     x, y = coord[0], coord[1]
