@@ -5,12 +5,27 @@ def ShipLogic(round, yourMap, yourHp, enemyHp, p1ShotSeq, p1PrevHit, storage):
     HIT = -1
     MISS = 1
 
-    # Primary logic 
+    # Building the storage array
     storage = update_storage(storage, p1ShotSeq, p1PrevHit)
-    heatmap = heatmap(storage)
+
+    # Creating a heatmap
+    heatmap = []
+    heatmap = zero_heatmap(heatmap)
+    heatmap = heatmap_misses(storage, heatmap)
+    heatmap = heatmap_hits(storage, heatmap)
+    heatmap = heatmap_zero_seen(storage, heatmap)
     
     # Find the largest 
+    max_heat_val = 0
+    
+    for x in range(10):
+        for y in range(10):
+            heat_val = heatmap[x][y]
+            if heat_val >= max_heat_val:
+                max_heat_val = heat_val
+    max_coord = (0, 0)
 
+    # Return this coordinate as a guess
     return [x,y], storage
     
 
@@ -70,14 +85,22 @@ def make_random_guess():
     y = random.randint(0,9)
     return x, y
 
-def heatmap_misses(storage):
+def zero_heatmap(heatmap):
+    """ Set the heatmap to all zeros """
+    for x in range(10):
+        heatmap.append([])
+        for y in range(10):
+            heatmap[x][y] = 0
+    return heatmap
+
+def heatmap_misses(storage, heatmap):
     heatmap = [[]]
     return heatmap
 
-def heatmap_hits(storage):
+def heatmap_hits(storage, heatmap):
     heatmap = [[]]
     return heatmap
 
-def heatmap_zero_seen(storage):
+def heatmap_zero_seen(storage, heatmap):
     heatmap = [[]]
     return heatmap
