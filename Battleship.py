@@ -10,33 +10,8 @@ def ShipLogic(round, yourMap, yourHp, enemyHp, p1ShotSeq, p1PrevHit, storage):
     heatmap = heatmap_misses(storage, heatmap)
     heatmap = heatmap_hits(storage, heatmap)
     
-    # Find the largest heatmap value
-    max_heat_val = 0
-    for x in range(10):
-        for y in range(10):
-            heat_val = heatmap[x][y]
-            if heat_val >= max_heat_val:
-                max_heat_val = heat_val
-    
-    # Find the coordinates of these largest values
-    max_coords = []
-    for x in range(10):
-        for y in range(10):
-            heat_val = heatmap[x][y]
-            if heat_val == max_heat_val:
-                max_coords.append((x, y))
-    
-    # Break tiebreakers between items in max_coords
-    if len(max_coords) > 1:
-        # Only take coordinates along diagonals to choose from a checkerboard
-        # pattern of coordinates for more efficient guessing
-        for coord in max_coords:
-            if ((coord[0] + coord[1])/2 != 0):
-                max_coords.remove(coord)
-        
-    # If there are still multiple coords left after this process, choose 
-    # one randomly
-    coord = random.choice(max_coords)
+    # Choose a coord from the heatmap
+    coord = select_from_heatmap(heatmap)
 
     # Return this coordinate as a guess
     x, y = coord[0], coord[1]
@@ -64,7 +39,6 @@ def print_key_info(round, yourMap, yourHp, enemyHp, p1ShotSeq, p1PrevHit, storag
     print(f"p1ShotSeq: {p1ShotSeq}")
     print(f"p1PrevHit: {p1PrevHit}")
     print(f"Storage: {storage}")
-
 
 
 def update_storage(storage, p1ShotSeq, p1PrevHit):
@@ -105,6 +79,7 @@ def heatmap_misses(storage, heatmap):
     heatmap = [[]]
     return heatmap
 
+
 def heatmap_hits(storage, heatmap):
     HIT = -1
     for r in range(10):
@@ -124,8 +99,36 @@ def heatmap_hits(storage, heatmap):
                     heatmap[r+1][c] += 100
     return heatmap
 
+
 def valid_coord(x, y, heatmap):
-    if (0<=x<=9 and 0<=y<=9 and heatmap[x][y] != 0):
-        return True
-    else:
-        return False
+    return (0<=x<=9 and 0<=y<=9 and heatmap[x][y] != 0)
+
+
+def select_from_heatmap(heatmap):
+    # Find the largest heatmap value
+    max_heat_val = 0
+    for x in range(10):
+        for y in range(10):
+            heat_val = heatmap[x][y]
+            if heat_val >= max_heat_val:
+                max_heat_val = heat_val
+    
+    # Find the coordinates of these largest values
+    max_coords = []
+    for x in range(10):
+        for y in range(10):
+            heat_val = heatmap[x][y]
+            if heat_val == max_heat_val:
+                max_coords.append((x, y))
+    
+    # Break tiebreakers between items in max_coords
+    if len(max_coords) > 1:
+        # Only take coordinates along diagonals to choose from a checkerboard
+        # pattern of coordinates for more efficient guessing
+        for coord in max_coords:
+            if ((coord[0] + coord[1])/2 != 0):
+                max_coords.remove(coord)
+        
+    # If there are still multiple coords left after this process, choose 
+    # one randomly
+    return random.choice(max_coords)
