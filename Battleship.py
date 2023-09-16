@@ -149,7 +149,7 @@ def check_right(x,y, storage):
 	# if within bounds of the board, keep checking 
 	while(y + i < 10):
 		# if coordinate has no hit or miss, increment count
-		if storage[x][y + i] == 0:
+		if storage[x][y + i] != 1:
 			count += 1
 		else:
 			# if coordinate has a hit or miss, stop counting
@@ -167,7 +167,7 @@ def check_left(x,y, storage):
 	# if within bounds of the board, keep checking
 	while(y - i >= 0):
 		# if coordinate has no hit or miss, increment count
-		if storage[x][y - i] == 0:
+		if storage[x][y - i] != 1:
 			count += 1
 		else:
 			# coordinate has a hit or miss, stop counting
@@ -183,7 +183,7 @@ def check_down(x,y, storage):
 	# if within bounds of the board, keep checking
 	while(x + i < 10):
 		# if coordinate has no hit or miss, increment count
-		if storage[x + i][y] == 0:
+		if storage[x + i][y] != 1:
 			count += 1
 		else:
 			break
@@ -198,7 +198,7 @@ def check_up(x,y, storage):
 	# if within bounds of the board, keep checking
 	while(x - i >= 0):
 		# if coordinate has no hit or miss, increment count
-		if storage[x - i][y] == 0:
+		if storage[x - i][y] != 1:
 			count += 1
 		# if coordinate has a hit or miss, stop counting
 		else:
@@ -213,7 +213,7 @@ def calculate_heat_map(storage, heatmap):
 	for i in range(0, 10):
 		for j in range(0, 10):
 			# if coordinate has a hit or miss, set heatmap to 0
-			if storage[i][j] == 1 or storage[i][j] == -1:
+			if storage[i][j] == 1: # or storage[i][j] == -1:
 				heatmap[i][j] = 0
 			# if coordinate has no hit or miss, check how many ships can fit	
 			else:
@@ -222,9 +222,8 @@ def calculate_heat_map(storage, heatmap):
 
 	return heatmap
 
-def get_heatmap(storage, heatmap):
+def get_heat_map(storage, heatmap):
 	return calculate_heat_map(storage, heatmap)
-
 def print_grid(array):
     for r in array:
         print(r)
