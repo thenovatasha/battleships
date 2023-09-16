@@ -106,16 +106,29 @@ def heatmap_hits(storage, heatmap):
             if storage[r][c] == HIT:
                 # check left
                 if valid_coord(r, c-1, heatmap):
-                    heatmap[r][c-1] += 5
+                    heatmap[r][c-1] += 1
+                    if storage[r][c-1] == HIT:
+                        if valid_coord(r, c+1, heatmap):
+                            heatmap[r][c+1] += 4
                 # check right
                 if valid_coord(r, c+1, heatmap):
-                    heatmap[r][c+1] += 5
+                    heatmap[r][c+1] += 1
+                    if storage[r][c+1] == HIT:
+                        if valid_coord(r, c-1, heatmap):
+                            heatmap[r][c-1] += 4
                 # check above
                 if valid_coord(r-1, c, heatmap):
-                    heatmap[r-1][c] += 5
+                    heatmap[r-1][c] += 1
+                    if storage[r-1][c] == HIT:
+                        if valid_coord(r+1, c, heatmap):
+                            heatmap[r+1][c] += 4
                 # check below
                 if valid_coord(r+1, c, heatmap):
-                    heatmap[r+1][c] += 5
+                    heatmap[r+1][c] += 1
+                    if storage[r+1][c] == HIT:
+                        if valid_coord(r-1, c, heatmap):
+                            heatmap[r-1][c] += 4
+                
     return heatmap
 
 def heatmap_zeros(storage, heatmap):
