@@ -97,6 +97,13 @@ def heatmap_hits(storage, heatmap):
                     heatmap[r+1][c] += 100
     return heatmap
 
+def heatmap_zeros(storage, heatmap):
+    HIT = -1
+    for r in range(10):
+        for c in range(10):
+            if storage[r][c] == HIT:
+                heatmap[r][c] = 0
+    return heatmap
 
 def valid_coord(x, y, heatmap):
     return (0<=x<=9 and 0<=y<=9 and heatmap[x][y] != 0)
