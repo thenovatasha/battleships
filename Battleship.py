@@ -67,9 +67,14 @@ def make_random_guess():
     y = random.randint(0,9)
     return x, y
 
-def use_misses(storage):
-    """ Create a heatmap that prodives the """
+def heatmap_misses(storage):
     heatmap = [[]]
     return heatmap
 
-def 
+def heatmap_hits(storage):
+    heatmap = [[]]
+    return heatmap
+
+def heatmap_zero_seen(storage):
+    heatmap = [[]]
+    return heatmap
