@@ -1,8 +1,8 @@
 import random
 def print_shots(storage):
 	matrix_zeros = [[0 for i in range(10)] for j in range(10)]
-	for row in storage:
-		for block in row:
+	for i in range(10):
+		for j in range(10):
 			if block == -1:
 				matrix_zeros[row][block] = 'X'
 				
