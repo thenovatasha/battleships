@@ -106,7 +106,22 @@ def heatmap_misses(storage, heatmap):
     return heatmap
 
 def heatmap_hits(storage, heatmap):
-    heatmap = [[]]
+    HIT = -1
+    for r in range(10):
+        for c in range(10):
+            if storage[r][c] == HIT:
+                # check left
+                if valid_coord(r, c-1, heatmap):
+                    heatmap[r][c-1] += 100
+                # check right
+                if valid_coord(r, c+1, heatmap):
+                    heatmap[r][c+1] += 100
+                # check above
+                if valid_coord(r-1, c, heatmap):
+                    heatmap[r-1][c] += 100
+                # check below
+                if valid_coord(r+1, c, heatmap):
+                    heatmap[r+1][c] += 100
     return heatmap
 
 def valid_coord(x, y, heatmap):
