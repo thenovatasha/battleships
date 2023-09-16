@@ -6,16 +6,21 @@ def ShipLogic(round, yourMap, yourHp, enemyHp, p1ShotSeq, p1PrevHit, storage):
 
     # Creating a heatmap
     heatmap = zero_array()
+    #print("SET HEATMAP TO ZEROS")
+    #print_grid(heatmap)
     heatmap = get_heatmap(storage, heatmap)
+    #print("CREATE HEATMAP BASED ON VALID SHIP POSITIONS")
+    #print_grid(heatmap)
     heatmap = heatmap_hits(storage, heatmap)
-    
+    #print("BIAS HEATMAP BASED ON HITS")
+    #print_grid(heatmap)
     # Choose a coord from the heatmap
     coord = select_from_heatmap(heatmap)
 
     # Return this coordinate as a guess
     x, y = coord[0], coord[1]
     # print(f"x: {x}, y: {y}")
-    return [x,y], storage
+    return [x+1,y+1], storage
     
 
 
@@ -113,15 +118,7 @@ def select_from_heatmap(heatmap):
             heat_val = heatmap[x][y]
             if heat_val == max_heat_val:
                 max_coords.append([x, y])
-    
-    # Break tiebreakers between items in max_coords
-    if len(max_coords) > 1:
-        # Only take coordinates along diagonals to choose from a checkerboard
-        # pattern of coordinates for more efficient guessing
-        for coord in max_coords:
-            if ((coord[0] + coord[1])%2 != 0 and len(max_coords) > 1):
-                max_coords.remove(coord)
-        
+
     # If there are still multiple coords left after this process, choose 
     # one randomly
     return random.choice(max_coords)
