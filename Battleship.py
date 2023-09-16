@@ -9,7 +9,6 @@ def ShipLogic(round, yourMap, yourHp, enemyHp, p1ShotSeq, p1PrevHit, storage):
     heatmap = zero_heatmap(heatmap)
     heatmap = heatmap_misses(storage, heatmap)
     heatmap = heatmap_hits(storage, heatmap)
-    heatmap = heatmap_zero_seen(storage, heatmap)
     
     # Find the largest heatmap value
     max_heat_val = 0
@@ -29,13 +28,18 @@ def ShipLogic(round, yourMap, yourHp, enemyHp, p1ShotSeq, p1PrevHit, storage):
     
     # Break tiebreakers between items in max_coords
     if len(max_coords) > 1:
-        # Only take 
+        # Only take coordinates along diagonals to choose from a checkerboard
+        # pattern of coordinates for more efficient guessing
         for coord in max_coords:
-    else:
-        x, y = max_coords[0][0], max_coords[0][1]
-    
+            if ((coord[0] + coord[1])/2 != 0):
+                max_coords.remove(coord)
+        
+    # If there are still multiple coords left after this process, choose 
+    # one randomly
+    coord = random.choice(max_coords)
 
     # Return this coordinate as a guess
+    x, y = coord[0], coord[1]
     return [x,y], storage
     
 
