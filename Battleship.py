@@ -15,7 +15,11 @@ def ShipLogic(round, yourMap, yourHp, enemyHp, p1ShotSeq, p1PrevHit, storage):
     #print("BIAS HEATMAP BASED ON HITS")
     #print_grid(heatmap)
     # Choose a coord from the heatmap
+    heatmap = heatmap_zeros(storage, heatmap)
+
     coord = select_from_heatmap(heatmap)
+
+
 
     # Return this coordinate as a guess
     x, y = coord[0], coord[1]
