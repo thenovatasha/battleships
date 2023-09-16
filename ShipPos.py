@@ -16,12 +16,14 @@ def getShipPos():
     # List of ships that must be placed
     remaining_ships = [5, 3, 3, 2, 2]
     shipPos = []
+    all_pos = []
     # Place ships in a random order
     
     # Put down all ships
     for ship in remaining_ships:
         fits = False
         while (not fits):
+            fits = True
             this_shipPos = []
             if bool(random.getrandbits(1)):
                 x = random.randint(0, 9)
@@ -37,16 +39,18 @@ def getShipPos():
                     this_shipPos.append((x, y_counter))
 
             for coord in this_shipPos:
-                if (0<=coord[0]<=9 and 0<=coord[1]<=9):
-                    not_overlapping = True
-                    for a_shipPos in shipPos:
-                        if coord in a_shipPos:
-                            not_overlapping = False
-                    fits = not_overlapping
-                else:
-                    fits = False
+                on_board = bool(0<=coord[0]<=9 and 0<=coord[1]<=9)
+                for old_shipPos in this_shipPos:
+                    for old_coord in old_shipPos:
+                        if ((on_board != True) or coord == old_coord):
+                            fits = False
+
+                
+        
                 
         shipPos.append(this_shipPos)
+    print(remaining_ships)
+    print(len(shipPos))
     """
     shipPos = [[(3,1), (4,1),(5,1)], 
                 [(2,1),(2,2),(2,3),(2,4),(2,5)], 

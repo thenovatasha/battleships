@@ -17,7 +17,7 @@ def ShipLogic(round, yourMap, yourHp, enemyHp, p1ShotSeq, p1PrevHit, storage):
 
     # Building the storage array
     storage = update_storage(storage, p1ShotSeq, p1PrevHit)
-    print_shots(storage)
+    #print_shots(storage)
 
     # Creating a heatmap
     heatmap = zero_array()
@@ -32,7 +32,7 @@ def ShipLogic(round, yourMap, yourHp, enemyHp, p1ShotSeq, p1PrevHit, storage):
     # Choose a coord from the heatmap
     heatmap = heatmap_zeros(storage, heatmap)
 
-    print_grid(heatmap)
+    #print_grid(heatmap)
 
     coord = select_from_heatmap(heatmap)
 
