@@ -1,9 +1,5 @@
 import random
 def ShipLogic(round, yourMap, yourHp, enemyHp, p1ShotSeq, p1PrevHit, storage):
-    # Declaring 
-    UNKNOWN = 0
-    HIT = -1
-    MISS = 1
 
     # Building the storage array
     storage = update_storage(storage, p1ShotSeq, p1PrevHit)
@@ -15,15 +11,29 @@ def ShipLogic(round, yourMap, yourHp, enemyHp, p1ShotSeq, p1PrevHit, storage):
     heatmap = heatmap_hits(storage, heatmap)
     heatmap = heatmap_zero_seen(storage, heatmap)
     
-    # Find the largest 
+    # Find the largest heatmap value
     max_heat_val = 0
-    
     for x in range(10):
         for y in range(10):
             heat_val = heatmap[x][y]
             if heat_val >= max_heat_val:
                 max_heat_val = heat_val
-    max_coord = (0, 0)
+    
+    # Find the coordinates of these largest values
+    max_coords = []
+    for x in range(10):
+        for y in range(10):
+            heat_val = heatmap[x][y]
+            if heat_val == max_heat_val:
+                max_coords.append((x, y))
+    
+    # Break tiebreakers between items in max_coords
+    if len(max_coords) > 1:
+        # Only take 
+        for coord in max_coords:
+    else:
+        x, y = max_coords[0][0], max_coords[0][1]
+    
 
     # Return this coordinate as a guess
     return [x,y], storage
@@ -58,6 +68,9 @@ def update_storage(storage, p1ShotSeq, p1PrevHit):
     # IMPORTANT: TO UPDATE STORAGE YOU MUST CALL FUNCTION AS storage = updateStorage(., ., .)
     # takes 1-10 coord but converts to 0-9
     # if storage has something in it, update, otherwise initialise
+    UNKNOWN = 0
+    HIT = -1
+    MISS = 1
     if (storage):
         # update, indexing in terms of x-1 and y-1
         lastShot = p1ShotSeq[-1]
@@ -98,6 +111,8 @@ def heatmap_hits(storage, heatmap):
     heatmap = [[]]
     return heatmap
 
-def heatmap_zero_seen(storage, heatmap):
-    heatmap = [[]]
-    return heatmap
+def valid_coord(x, y, heatmap):
+    if (0<=x<=9 and 0<=y<=9 and heatmap[x][y] != 0):
+        return True
+    else:
+        return False
