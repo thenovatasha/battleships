@@ -30,6 +30,7 @@ def ShipLogic(round, yourMap, yourHp, enemyHp, p1ShotSeq, p1PrevHit, storage):
     #print("BIAS HEATMAP BASED ON HITS")
     #print_grid(heatmap)
     # Choose a coord from the heatmap
+    heatmap = update_edges(storage, heatmap)
     heatmap = heatmap_zeros(storage, heatmap)
 
     print_grid(heatmap)
@@ -112,37 +113,37 @@ def heatmap_hits(storage, heatmap):
                     if storage[r][c-1] == HIT:
                         is_single_hit = False
                         if valid_coord(r, c+1, heatmap):
-                            heatmap[r][c+1] += 7
+                            heatmap[r][c+1] += 5
                 # check right
                 if valid_coord(r, c+1, heatmap):
                     #heatmap[r][c+1] += 1
                     if storage[r][c+1] == HIT:
                         is_single_hit = False
                         if valid_coord(r, c-1, heatmap):
-                            heatmap[r][c-1] += 7
+                            heatmap[r][c-1] += 5
                 # check above
                 if valid_coord(r-1, c, heatmap):
                     #heatmap[r-1][c] += 1
                     if storage[r-1][c] == HIT:
                         is_single_hit = False
                         if valid_coord(r+1, c, heatmap):
-                            heatmap[r+1][c] += 7
+                            heatmap[r+1][c] += 5
                 # check below
                 if valid_coord(r+1, c, heatmap):
                     #heatmap[r+1][c] += 1
                     if storage[r+1][c] == HIT:
                         is_single_hit = False
                         if valid_coord(r-1, c, heatmap):
-                            heatmap[r-1][c] += 7
+                            heatmap[r-1][c] += 5
                 if is_single_hit:
                     if valid_coord(r, c-1, heatmap):
-                        heatmap[r][c-1] += 7
+                        heatmap[r][c-1] += 5
                     if valid_coord(r, c+1, heatmap):
-                        heatmap[r][c+1] += 7
+                        heatmap[r][c+1] += 5
                     if valid_coord(r-1, c, heatmap):
-                        heatmap[r-1][c] += 7
+                        heatmap[r-1][c] += 5
                     if valid_coord(r+1, c, heatmap):
-                        heatmap[r+1][c] += 7
+                        heatmap[r+1][c] += 5
                 # add adjacency bonuses to hit squares which aren't adjacent to any hit square
 
                 
@@ -285,6 +286,49 @@ def calculate_heat_map(storage, heatmap):
 
 def get_heat_map(storage, heatmap):
 	return calculate_heat_map(storage, heatmap)
+
+def update_horizontal_hits(x,y, storage, heatmap):
+	i = 0
+	count = 0
+	if(storage[x][y] == -1):
+		while(y + i < 10):
+			if(storage[x][y + i] == -1):
+				count += 1
+				i += 1
+			else:
+				break
+	if(y != 0 and storage[x][y - 1] == -1):
+		return heatmap
+	else:
+		if(y + count < 10 and count == 5):
+			heatmap[x][y + count] -= 5
+		if(y - 1 >= 0 and count == 5):
+			heatmap[x][y - 1] -= 5
+
+def update_vertical_hits(x, y, storage, heatmap):
+	i = 0
+	count = 0
+	if(storage[x][y] == -1):
+		while(x + i < 10):
+			if(storage[x + i][y] == -1):
+				count += 1
+				i += 1
+			else:
+				break
+	if(x != 0 and storage[x - 1][y] == -1):
+		return heatmap
+	else:
+		if(x + count < 10 and count == 5):
+			heatmap[x + count][y] -= 5
+		if(x - 1 >= 0 and count == 5):
+			heatmap[x - 1][y] -= 5
+		
+def update_edges(storage, heatmap):
+	for i in range(0, 10):
+		for j in range(0, 10):
+			update_horizontal_hits(i, j, storage, heatmap)
+			update_vertical_hits(i, j, storage, heatmap)
+	return heatmap
 
 def print_grid(array):
     for r in range(10):
