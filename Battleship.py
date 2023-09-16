@@ -61,12 +61,9 @@ def update_storage(storage, p1ShotSeq, p1PrevHit):
     if (storage):
         # update, indexing in terms of x-1 and y-1
         lastShot = p1ShotSeq[-1]
-        print("LAST SHOT: ", lastShot)
         if p1PrevHit:
-            print("a")
             storage[lastShot[0]-1][lastShot[1]-1] = HIT
         else:
-            print("b")
             storage[lastShot[0]-1][lastShot[1]-1] = MISS
         return storage
     else:
