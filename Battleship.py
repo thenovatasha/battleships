@@ -8,7 +8,7 @@ def ShipLogic(round, yourMap, yourHp, enemyHp, p1ShotSeq, p1PrevHit, storage):
     heatmap = zero_array()
     #print("SET HEATMAP TO ZEROS")
     #print_grid(heatmap)
-    heatmap = get_heatmap(storage, heatmap)
+    heatmap = get_heat_map(storage, heatmap)
     #print("CREATE HEATMAP BASED ON VALID SHIP POSITIONS")
     #print_grid(heatmap)
     heatmap = heatmap_hits(storage, heatmap)
@@ -231,6 +231,7 @@ def calculate_heat_map(storage, heatmap):
 
 def get_heat_map(storage, heatmap):
 	return calculate_heat_map(storage, heatmap)
+
 def print_grid(array):
     for r in array:
         print(r)
