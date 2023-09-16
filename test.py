@@ -62,6 +62,7 @@ p2Storage =[]
     # -------------------------------------------------------------- #
     # Modify at your own risk ^.^
     # store every index/coord that the ship is covering, e.g. [(1,3), (1,4),(1,5)] for a ship of len 3. Each Coordinate must be 0-9. ([0-9], [0-9]).  
+"""
 p1ShipPos = [[(3,1), (4,1),(5,1)], 
                 [(2,1),(2,2),(2,3),(2,4),(2,5)], 
                 [(7,7),(8,7)] , 
@@ -85,6 +86,12 @@ p2ShipPos = [[(3,1), (4,1),(5,1)],
 #           [(8, 8), (9, 8)], 
 #           [(1, 10), (2, 10), (3, 10)], 
 #           [(6, 10), (7, 10)]]
+"""
+# RANDOMLY GENERATED BOARDS
+pos_generator = importlib.import_module("ShipPos")
+p1ShipPos = pos_generator.getShipPos()
+p2ShipPos = pos_generator.getShipPos()
+
 
 assert len(p1ShipPos) == len(shipSizeArr) and len(p2ShipPos) == len(shipSizeArr), "Number of ships and Number of ShipPos coords must be consistent"
 

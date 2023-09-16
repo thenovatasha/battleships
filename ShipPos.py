@@ -1,3 +1,5 @@
+import random
+
 def getShipPos():
     '''
     THIS IS THE LIST OF SHIPS
@@ -8,13 +10,48 @@ def getShipPos():
     2x 2 long
 
     Your ships must satisfy this 
+    Ship positions must be (0-9, 0-9)
     '''
-
-    # due to a bug we have the indexing of ships are 0-9
+    # GENERATE SHIP POSITIONS
+    # List of ships that must be placed
+    remaining_ships = [5, 3, 3, 2, 2]
+    shipPos = []
+    # Place ships in a random order
     
+    # Put down all ships
+    for ship in remaining_ships:
+        fits = False
+        while (not fits):
+            this_shipPos = []
+            if bool(random.getrandbits(1)):
+                x = random.randint(0, 9)
+                y = random.randint(0, 9)
+                x_end = x+ship
+                for x_counter in range(x, x_end):
+                    this_shipPos.append((x_counter, y))
+            else:
+                x = random.randint(0, 9)
+                y = random.randint(0, 9)
+                y_end = y+ship
+                for y_counter in range(y, y_end):
+                    this_shipPos.append((x, y_counter))
+
+            for coord in this_shipPos:
+                if (0<=coord[0]<=9 and 0<=coord[1]<=9):
+                    not_overlapping = True
+                    for a_shipPos in shipPos:
+                        if coord in a_shipPos:
+                            not_overlapping = False
+                    fits = not_overlapping
+                else:
+                    fits = False
+                
+        shipPos.append(this_shipPos)
+    """
     shipPos = [[(3,1), (4,1),(5,1)], 
                 [(2,1),(2,2),(2,3),(2,4),(2,5)], 
                 [(7,7),(8,7)] , 
                 [(0,9), (1,9), (2,9)], 
                 [(5,9), (6,9)]]
+    """
     return shipPos
