@@ -120,9 +120,11 @@ def heatmap_hits(storage, heatmap):
 
 def heatmap_zeros(storage, heatmap):
     HIT = -1
+    MISS = 1
+    UNKNOWN = 0
     for r in range(10):
         for c in range(10):
-            if storage[r][c] == HIT:
+            if storage[r][c] != UNKNOWN:
                 heatmap[r][c] = 0
     return heatmap
 
@@ -256,6 +258,6 @@ def get_heat_map(storage, heatmap):
 def print_grid(array):
     for r in range(10):
         for c in range(10):
-            print(array[r][c], end="")
+            print(array[r][c], end=" ")
         print()
     print()
