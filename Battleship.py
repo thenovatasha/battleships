@@ -1,8 +1,23 @@
 import random
+def print_shots(storage):
+	matrix_zeros = [[0 for i in range(10)] for j in range(10)]
+	for i in range(10):
+		for j in range(10):
+			if storage[i][j] == -1:
+				matrix_zeros[i][j] = 'X'
+			elif storage[i][j] == 1:
+				matrix_zeros[i][j] = '0'
+			else:
+				matrix_zeros[i][j] = '.'
+	print_grid(matrix_zeros)
+		
+		
 def ShipLogic(round, yourMap, yourHp, enemyHp, p1ShotSeq, p1PrevHit, storage):
+
 
     # Building the storage array
     storage = update_storage(storage, p1ShotSeq, p1PrevHit)
+    print_shots(storage)
 
     # Creating a heatmap
     heatmap = zero_array()
@@ -14,10 +29,14 @@ def ShipLogic(round, yourMap, yourHp, enemyHp, p1ShotSeq, p1PrevHit, storage):
     heatmap = heatmap_hits(storage, heatmap)
     #print("BIAS HEATMAP BASED ON HITS")
     #print_grid(heatmap)
-    heatmap = heatmap_zeros(storage, heatmap)
-    
     # Choose a coord from the heatmap
+    heatmap = heatmap_zeros(storage, heatmap)
+
+    print_grid(heatmap)
+
     coord = select_from_heatmap(heatmap)
+
+
 
     # Return this coordinate as a guess
     x, y = coord[0], coord[1]
@@ -87,23 +106,25 @@ def heatmap_hits(storage, heatmap):
             if storage[r][c] == HIT:
                 # check left
                 if valid_coord(r, c-1, heatmap):
-                    heatmap[r][c-1] += 100
+                    heatmap[r][c-1] += 5
                 # check right
                 if valid_coord(r, c+1, heatmap):
-                    heatmap[r][c+1] += 100
+                    heatmap[r][c+1] += 5
                 # check above
                 if valid_coord(r-1, c, heatmap):
-                    heatmap[r-1][c] += 100
+                    heatmap[r-1][c] += 5
                 # check below
                 if valid_coord(r+1, c, heatmap):
-                    heatmap[r+1][c] += 100
+                    heatmap[r+1][c] += 5
     return heatmap
 
 def heatmap_zeros(storage, heatmap):
     HIT = -1
+    MISS = 1
+    UNKNOWN = 0
     for r in range(10):
         for c in range(10):
-            if storage[r][c] == HIT:
+            if storage[r][c] != UNKNOWN:
                 heatmap[r][c] = 0
     return heatmap
 
@@ -235,6 +256,8 @@ def get_heat_map(storage, heatmap):
 	return calculate_heat_map(storage, heatmap)
 
 def print_grid(array):
-    for r in array:
-        print(r)
-    print("")
+    for r in range(10):
+        for c in range(10):
+            print(array[r][c], end=" ")
+        print()
+    print()
