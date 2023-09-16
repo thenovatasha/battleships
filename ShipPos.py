@@ -40,7 +40,7 @@ def getShipPos():
 
             for coord in this_shipPos:
                 on_board = bool(0<=coord[0]<=9 and 0<=coord[1]<=9)
-                for old_shipPos in this_shipPos:
+                for old_shipPos in shipPos:
                     for old_coord in old_shipPos:
                         if ((on_board != True) or coord == old_coord):
                             fits = False
@@ -49,8 +49,7 @@ def getShipPos():
         
                 
         shipPos.append(this_shipPos)
-    print(remaining_ships)
-    print(len(shipPos))
+
     """
     shipPos = [[(3,1), (4,1),(5,1)], 
                 [(2,1),(2,2),(2,3),(2,4),(2,5)], 
