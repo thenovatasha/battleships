@@ -17,7 +17,7 @@ def ShipLogic(round, yourMap, yourHp, enemyHp, p1ShotSeq, p1PrevHit, storage):
 
     # Building the storage array
     storage = update_storage(storage, p1ShotSeq, p1PrevHit)
-    #print_shots(storage)
+    print_shots(storage)
 
     # Creating a heatmap
     heatmap = zero_array()
@@ -32,7 +32,7 @@ def ShipLogic(round, yourMap, yourHp, enemyHp, p1ShotSeq, p1PrevHit, storage):
     # Choose a coord from the heatmap
     heatmap = heatmap_zeros(storage, heatmap)
 
-    #print_grid(heatmap)
+    print_grid(heatmap)
 
     coord = select_from_heatmap(heatmap)
 
@@ -41,6 +41,7 @@ def ShipLogic(round, yourMap, yourHp, enemyHp, p1ShotSeq, p1PrevHit, storage):
     # Return this coordinate as a guess
     x, y = coord[0], coord[1]
     # print(f"x: {x}, y: {y}")
+    print(x+1, y+1)
     return [x+1,y+1], storage
     
 
@@ -103,31 +104,48 @@ def heatmap_hits(storage, heatmap):
     HIT = -1
     for r in range(10):
         for c in range(10):
+            is_single_hit = True
             if storage[r][c] == HIT:
                 # check left
                 if valid_coord(r, c-1, heatmap):
                     heatmap[r][c-1] += 1
                     if storage[r][c-1] == HIT:
+                        is_single_hit = False
                         if valid_coord(r, c+1, heatmap):
                             heatmap[r][c+1] += 4
                 # check right
                 if valid_coord(r, c+1, heatmap):
                     heatmap[r][c+1] += 1
                     if storage[r][c+1] == HIT:
+                        is_single_hit = False
                         if valid_coord(r, c-1, heatmap):
                             heatmap[r][c-1] += 4
                 # check above
                 if valid_coord(r-1, c, heatmap):
                     heatmap[r-1][c] += 1
                     if storage[r-1][c] == HIT:
+                        is_single_hit = False
                         if valid_coord(r+1, c, heatmap):
                             heatmap[r+1][c] += 4
                 # check below
                 if valid_coord(r+1, c, heatmap):
                     heatmap[r+1][c] += 1
                     if storage[r+1][c] == HIT:
+                        is_single_hit = False
                         if valid_coord(r-1, c, heatmap):
                             heatmap[r-1][c] += 4
+                if is_single_hit:
+                    if valid_coord(r, c-1, heatmap):
+                        heatmap[r][c-1] += 4
+                    if valid_coord(r, c+1, heatmap):
+                        heatmap[r][c+1] += 4
+                    if valid_coord(r-1, c, heatmap):
+                        heatmap[r-1][c] += 4
+                    if valid_coord(r+1, c, heatmap):
+                        heatmap[r+1][c] += 4
+                # add adjacency bonuses to hit squares which aren't adjacent to any hit square
+
+                
                 
     return heatmap
 
