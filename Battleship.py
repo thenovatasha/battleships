@@ -7,7 +7,7 @@ def ShipLogic(round, yourMap, yourHp, enemyHp, p1ShotSeq, p1PrevHit, storage):
     # Creating a heatmap
     heatmap = []
     heatmap = zero_heatmap(heatmap)
-    heatmap = heatmap_misses(storage, heatmap)
+    heatmap = get_heatmap(storage, heatmap)
     heatmap = heatmap_hits(storage, heatmap)
     
     # Choose a coord from the heatmap
@@ -75,10 +75,6 @@ def zero_heatmap(heatmap):
             heatmap[x][y] = 0
     return heatmap
 
-def heatmap_misses(storage, heatmap):
-    
-    return get_heatmap(storage, heatmap)
-
 
 def heatmap_hits(storage, heatmap):
     HIT = -1
@@ -132,7 +128,8 @@ def select_from_heatmap(heatmap):
     # If there are still multiple coords left after this process, choose 
     # one randomly
     return random.choice(max_coords)
-    def fit_ships(count): 
+
+def fit_ships(count): 
 	''' Checks the number of ships that will fit in a given space 
 		and returns the number of ships that will fit.'''
 	
@@ -231,5 +228,5 @@ def calculate_heat_map(storage, heatmap):
 
 	return heatmap
 
-def get_heat_map(storage, heatmap):
+def get_heatmap(storage, heatmap):
 	return calculate_heat_map(storage, heatmap)
