@@ -112,28 +112,28 @@ def heatmap_hits(storage, heatmap):
                     if storage[r][c-1] == HIT:
                         is_single_hit = False
                         if valid_coord(r, c+1, heatmap):
-                            heatmap[r][c+1] += 4
+                            heatmap[r][c+1] += 7
                 # check right
                 if valid_coord(r, c+1, heatmap):
                     heatmap[r][c+1] += 1
                     if storage[r][c+1] == HIT:
                         is_single_hit = False
                         if valid_coord(r, c-1, heatmap):
-                            heatmap[r][c-1] += 4
+                            heatmap[r][c-1] += 7
                 # check above
                 if valid_coord(r-1, c, heatmap):
                     heatmap[r-1][c] += 1
                     if storage[r-1][c] == HIT:
                         is_single_hit = False
                         if valid_coord(r+1, c, heatmap):
-                            heatmap[r+1][c] += 4
+                            heatmap[r+1][c] += 7
                 # check below
                 if valid_coord(r+1, c, heatmap):
                     heatmap[r+1][c] += 1
                     if storage[r+1][c] == HIT:
                         is_single_hit = False
                         if valid_coord(r-1, c, heatmap):
-                            heatmap[r-1][c] += 4
+                            heatmap[r-1][c] += 7
                 if is_single_hit:
                     if valid_coord(r, c-1, heatmap):
                         heatmap[r][c-1] += 4

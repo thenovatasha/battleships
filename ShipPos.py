@@ -48,15 +48,21 @@ def getShipPos():
             visual[coord[0]][coord[1]] = num
     print_grid(visual)
     """
-    
-    shipPos = [[(3,1), (4,1),(5,1)], 
+    shipPos = []
+    shipPos.append([[(5,6), (5,7), (5,8)],
+                [(3,4), (4,4), (5,4), (6,4), (7,4)],
+                [(7,9), (8,9)],
+                [(9,4),(9,5),(9,6)],
+                [(8,1),(8,2)]])
+
+    shipPos.append([[(3,1), (4,1),(5,1)], 
                 [(2,1),(2,2),(2,3),(2,4),(2,5)], 
                 [(7,7),(8,7)] , 
                 [(0,9), (1,9), (2,9)], 
-                [(5,9), (6,9)]]
+                [(5,9), (6,9)]])
     
 
-    return shipPos
+    return random.choice(shipPos)
 
 def zero_array():
     """ Set the heatmap to all zeros """
