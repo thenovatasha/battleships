@@ -14,3 +14,4 @@ def print_key_info(round, yourMap, yourHp, enemyHp, p1ShotSeq, p1PrevHit, storag
     print(f"p1ShotSeq: {p1ShotSeq}")
     print(f"p1PrevHit: {p1PrevHit}")
     print(f"Storage: {storage}")
+
