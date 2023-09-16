@@ -5,10 +5,12 @@ def print_shots(storage):
 		for j in range(10):
 			if storage[i][j] == -1:
 				matrix_zeros[i][j] = 'X'
-				
+			elif storage[i][j] == 1:
+				matrix_zeros[i][j] = '.'
 			else:
-				matrix_zeros[i][j] = 'O'
+				matrix_zeros[i][j] = ' '
 	print_grid(matrix_zeros)
+		
 		
 def ShipLogic(round, yourMap, yourHp, enemyHp, p1ShotSeq, p1PrevHit, storage):
 
