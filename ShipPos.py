@@ -68,6 +68,13 @@ def getShipPos():
                 [(5,1),(6,1)],
                 [(4,7),(4,8),(4,9)],
                 [(5,8),(5,9)]])
+    
+    # very human, well spread out board without many edge pieces
+    shipPos.append([[(3, 2), (3, 3), (3, 4)],
+                [(4, 8), (5,8),(6,8),(7,8),(8,8)],
+                [(7,2),(8,2)],
+                [(5,5),(6,5),(7,5)],
+                [(0,7),(1,7)]])
 
     return random.choice(shipPos)
 
