@@ -301,9 +301,9 @@ def update_horizontal_hits(x,y, storage, heatmap):
 		return heatmap
 	else:
 		if(y + count < 10 and count == 5):
-			heatmap[x][y + count] -= 5
+			heatmap[x][y + count] -= 3
 		if(y - 1 >= 0 and count == 5):
-			heatmap[x][y - 1] -= 5
+			heatmap[x][y - 1] -= 3
 
 def update_vertical_hits(x, y, storage, heatmap):
 	i = 0
@@ -319,9 +319,9 @@ def update_vertical_hits(x, y, storage, heatmap):
 		return heatmap
 	else:
 		if(x + count < 10 and count == 5):
-			heatmap[x + count][y] -= 5
+			heatmap[x + count][y] -= 3
 		if(x - 1 >= 0 and count == 5):
-			heatmap[x - 1][y] -= 5
+			heatmap[x - 1][y] -= 3
 		
 def update_edges(storage, heatmap):
 	for i in range(0, 10):

@@ -62,12 +62,6 @@ def getShipPos():
                 [(0,9), (1,9), (2,9)], 
                 [(5,9), (6,9)]])
     
-    # quite clumped into middle
-    shipPos.append([[(2, 2), (2, 3), (2, 4)],
-                [(3, 1), (3,2),(3,3),(3,4),(3,5)],
-                [(5,1),(6,1)],
-                [(4,7),(4,8),(4,9)],
-                [(5,8),(5,9)]])
     
     # very human, well spread out board without many edge pieces
     shipPos.append([[(3, 2), (3, 3), (3, 4)],
