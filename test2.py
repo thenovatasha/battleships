@@ -182,51 +182,42 @@ def calculate_heat_map(storage, heatmap):
 def get_heat_map(storage, heatmap):
 	return calculate_heat_map(storage, heatmap)
 
-
-def print_grid(array):
-    for r in range(10):
-        for c in range(10):
-            print(array[r][c], end=" ")
-        print()
-    print()
-    
 def update_horizontal_hits(x,y, storage, heatmap):
 	i = 0
 	count = 0
-	y_found = -1
+	if(storage[x][y] == -1):
+		while(y + i < 10):
+			if(storage[x][y + i] == -1):
+				count += 1
+				i += 1
+			else:
+				break
+	if(y != 0 and storage[x][y - 1] == -1):
+		return heatmap
+	else:
+		if(y + count < 10 and count == 5):
+			heatmap[x][y + count] -= 5
+		if(y - 1 >= 0 and count == 5):
+			heatmap[x][y - 1] -= 5
 
-	while(y + i < 10):
-		if(storage[x][y + i] == -1):
-			if count == 0 and y + i - 1 >= 0 and storage[x][y + i - 1] == -1:
-				i+= 1
-				continue
-			count +=1
-			if count == 1:
-				y_found = y + i
-			
-		i += 1
-	if(y_found + count < 10 and count >= 5):
-		heatmap[x][y_found + count] -= 5
-	if(y_found - 1 >= 0 and count >= 5):
-		heatmap[x][y_found - 1] -= 5
-
+    
 def update_vertical_hits(x, y, storage, heatmap):
 	i = 0
 	count = 0
-	x_found = -1
-	while(x + i < 10):
-		if(storage[x + i][y] == -1):
-			if count == 0 and y + i - 1 >= 0 and storage[x][y + i - 1] == -1:
-				i+= 1
-				continue
-			count += 1
-			if count == 1:
-				x_found = x + i
-		i += 1
-	if(x_found + count < 10 and count >= 5):
-		heatmap[x_found + count][y] -= 5
-	if(x - 1 >= 0 and count >= 5):
-		heatmap[x_found - 1][y] -= 5
+	if(storage[x][y] == -1):
+		while(x + i < 10):
+			if(storage[x + i][y] == -1):
+				count += 1
+				i += 1
+			else:
+				break
+	if(x != 0 and storage[x - 1][y] == -1):
+		return heatmap
+	else:
+		if(x + count < 10 and count == 5):
+			heatmap[x + count][y] -= 5
+		if(x - 1 >= 0 and count == 5):
+			heatmap[x - 1][y] -= 5
 		
 def update_edges(storage, heatmap):
 	for i in range(0, 10):
@@ -234,6 +225,14 @@ def update_edges(storage, heatmap):
 			update_horizontal_hits(i, j, storage, heatmap)
 			update_vertical_hits(i, j, storage, heatmap)
 	return heatmap
+
+def print_grid(array):
+    for r in range(10):
+        for c in range(10):
+            print(array[r][c], end=" ")
+        print()
+    print()
+
 
 heatmap = get_heat_map(storage, heatmap)
 heatmap = heatmap_hits(storage, heatmap)
